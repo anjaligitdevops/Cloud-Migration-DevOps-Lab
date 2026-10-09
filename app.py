@@ -1,6 +1,6 @@
 
 def home():
-    return "Hello! My DevOps project is running."
+    return "Hello! My Azure DevOps CI pipeline is working."
 
 
 if __name__ == "__main__":
