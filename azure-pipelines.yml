@@ -30,3 +30,7 @@ steps:
       failTaskOnFailedTests: true
     condition: succeededOrFailed()
     displayName: 'Publish test results'
+
+  - script: |
+      docker build -t cloud-migration-app:$(Build.BuildId) .
+    displayName: 'Build Docker image'
