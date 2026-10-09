@@ -31,6 +31,15 @@ steps:
     condition: succeededOrFailed()
     displayName: 'Publish test results'
 
-  - script: |
-      docker build -t cloud-migration-app:$(Build.BuildId) .
-    displayName: 'Build Docker image'
+  
+  - task: AzureCLI@2
+    displayName: 'Build and push Docker image to ACR'
+    inputs:
+      azureSubscription: 'sc-azure-acr-raiacontainer310'
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: |
+        az acr login --name raiacontainer310
+        docker build -t raiacontainer310.azurecr.io/cloud-migration-app:$(Build.BuildId) .
+        docker push raiacontainer310.azurecr.io/cloud-migration-app:$(Build.BuildId)
+
